@@ -49,6 +49,6 @@ export class HomePage implements NavLifeCycle{
 
   selecionaCarro(carro: Carro){
     console.log(carro);
-    this.navCtrl.push(DetalheCarroPage);
+    this.navCtrl.push(DetalheCarroPage, { carro });
   }
 }
