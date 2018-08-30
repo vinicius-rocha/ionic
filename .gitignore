@@ -10,6 +10,9 @@
 # dependencies
 **/node_modules
 
+# api
+/api
+
 # IDEs and editors
 /.idea
 .project
