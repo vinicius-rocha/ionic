@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController } from 'ionic-angular';
+import { NavController, LoadingController, AlertController } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
 
 import { Carro } from '../../app/models/carro';
@@ -14,22 +14,34 @@ export class HomePage {
 
   constructor(
     public navCtrl: NavController,
-    private http: HttpClient,
-    private loadindCtrl: LoadingController
+    private _http: HttpClient,
+    private _loadindCtrl: LoadingController,
+    private _alterCtlr: AlertController
   ) {
-    
-    let loading = this.loadindCtrl.create({
-      content: 'Aguarde o carregamento dos carros...'
+
+    let loading = this._loadindCtrl.create({
+      content: 'Carregando os carros...'
     });
-    
+
     loading.present();
 
-    this.http
-      .get<Carro[]>('http://localhost:8080/api/carro/listaTodos')
+    this._http
+      .get<Carro[]>('http://localhost:8080/api/carro/listaTodosx')
       .subscribe(carros => {
         this.carros = carros;
 
         loading.dismiss();
+      }, error => {
+        loading.dismiss();
+        this._alterCtlr.create({
+          title: 'Falha na conexão',
+          subTitle: 'Não foi possível carregar a lista de carros. Tente novamente mais tarde.',
+          buttons: [
+            {
+              text: 'OK'
+            }
+          ]
+        }).present();
       });
   }
 }
