@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { HttpClient } from '@angular/common/http';
+
 import { Carro } from '../../app/models/carro';
 
 @Component({
@@ -10,13 +12,15 @@ export class HomePage {
 
   carros: Carro[];
 
-  constructor(public navCtrl: NavController) {
-    this.carros = [
-      { nome: 'Azera V6', preco: 85000 },
-      { nome: 'Onix 1.6', preco: 40000 },
-      { nome: 'Fiesta 2.0', preco: 52000 },
-      { nome: 'C3 2.0', preco: 60000 }
-    ]
-  }
+  constructor(
+    public navCtrl: NavController,
+    private http: HttpClient
+  ) {
 
+    this.http
+      .get<Carro[]>('http://localhost:8080/api/carro/listaTodos')
+      .subscribe(carros => {
+        this.carros = carros;
+      });
+  }
 }
