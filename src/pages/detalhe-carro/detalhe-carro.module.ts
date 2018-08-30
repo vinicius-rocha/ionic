@@ -9,5 +9,8 @@ import { DetalheCarroPage } from './detalhe-carro';
   imports: [
     IonicPageModule.forChild(DetalheCarroPage),
   ],
+  exports: [
+    DetalheCarroPage
+  ]
 })
 export class DetalheCarroPageModule {}
