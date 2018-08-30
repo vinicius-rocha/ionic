@@ -4,6 +4,7 @@ import { NavController, LoadingController, AlertController } from 'ionic-angular
 import { Carro } from '../../models/carro';
 import { CarrosServiceProvider } from '../../providers/carros-service/carros-service';
 import { NavLifeCycle } from '../../utils/ionic/nav/nav-lifecycle';
+import { DetalheCarroPage } from '../detalhe-carro/detalhe-carro';
 
 @Component({
   selector: 'page-home',
@@ -48,5 +49,6 @@ export class HomePage implements NavLifeCycle{
 
   selecionaCarro(carro: Carro){
     console.log(carro);
+    this.navCtrl.push(DetalheCarroPage);
   }
 }
