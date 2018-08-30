@@ -36,12 +36,12 @@
         <h2>{{ acessorio.nome }}</h2>
         <h4>{{ acessorio.preco }}</h4>
       </ion-label>
-      <ion-toggle color="secondary"></ion-toggle>
+      <ion-toggle #toggle (ionChange)="atualizaTotal(toggle.checked, acessorio)" color="secondary"></ion-toggle>
     </ion-item>
   </ion-item-group>
 
   <ion-item-divider color="light">
-    <span item-right>TOTAL: {{ carro.preco}}</span>
+    <span item-right>TOTAL: {{ precoTotal }}</span>
   </ion-item-divider>
 
   <ion-fab top right edge>
