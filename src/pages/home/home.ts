@@ -45,4 +45,8 @@ export class HomePage implements NavLifeCycle{
         }).present();
       });
   }
+
+  selecionaCarro(carro: Carro){
+    console.log(carro);
+  }
 }
