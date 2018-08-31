@@ -72,16 +72,21 @@ export class CadastroPage implements OnInit {
 
     this.agendamentoService
       .agenda(agendamento)
-      .mergeMap(() => this.salva(agendamento))
+      .mergeMap(valor => {
+        let observable = this.salva(agendamento);
+        if (valor instanceof Error)
+          throw valor;
+        return observable;
+      })
       .finally(() => this.alerta.setSubTitle(mensagem).present())
       .subscribe(
         () => mensagem = 'Agendamento realizado!',
-        () => mensagem = 'Falha no agendamento! Tente novamente mais tarde'
+        (err: Error) => mensagem = err.message
       );
   }
 
   salva(agendamento: Agendamento) {
-    let chave = agendamento.emailCliente + this.cadastroForm.get('data').value.substr(0,10);
+    let chave = agendamento.emailCliente + this.cadastroForm.get('data').value.substr(0, 10);
     return Observable.fromPromise(this.storage.set(chave, agendamento))
   }
 }
