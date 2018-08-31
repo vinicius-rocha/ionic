@@ -6,6 +6,7 @@ import { Carro } from '../../models/carro';
 import { AgendamentosServiceProvider } from '../../providers/agendamentos/agendamentos.service';
 import { HomePage } from '../home/home';
 import { Agendamento } from '../../models/agendamento';
+import { AgendamentoDaoProvider } from '../../providers/agendamento-dao/agendamento.dao';
 
 @IonicPage()
 @Component({
@@ -24,7 +25,8 @@ export class CadastroPage implements OnInit {
     public navParams: NavParams,
     private alertCtrl: AlertController,
     private formBuilder: FormBuilder,
-    private agendamentoService: AgendamentosServiceProvider
+    private agendamentoService: AgendamentosServiceProvider,
+    private agendamentoDao: AgendamentoDaoProvider
   ) {
     this.cadastroForm = this.formBuilder.group({
       nome: ['', Validators.required],
@@ -58,19 +60,34 @@ export class CadastroPage implements OnInit {
       enderecoCliente: this.cadastroForm.get('endereco').value,
       emailCliente: this.cadastroForm.get('email').value,
       modeloCarro: this.carro.nome,
-      precoTotal: this.precoTotal
+      precoTotal: this.precoTotal,
+      data: this.cadastroForm.get('data').value,
+      enviado: false,
+      confirmado: false
     };
 
     console.log(agendamento);
 
     let mensagem = '';
 
-    this.agendamentoService
-      .agenda(agendamento)
+    this.agendamentoDao
+      .ehDuplicado(agendamento)
+      .mergeMap(duplicado => {
+        if (duplicado) {
+          throw new Error('Agendamento já existente!');
+        }
+        return this.agendamentoService.agenda(agendamento)
+      })
+      .mergeMap(valor => {
+        let observable = this.agendamentoDao.salva(agendamento);
+        if (valor instanceof Error)
+          throw valor;
+        return observable;
+      })
       .finally(() => this.alerta.setSubTitle(mensagem).present())
       .subscribe(
         () => mensagem = 'Agendamento realizado!',
-        () => mensagem = 'Falha no agendamento! Tente novamente mais tarde'
+        (err: Error) => mensagem = err.message
       );
   }
 }

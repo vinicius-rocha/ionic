@@ -5,11 +5,18 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { HttpClientModule } from '@angular/common/http';
 import 'rxjs/add/operator/finally';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/fromPromise';
+import 'rxjs/add/observable/of';
+import { IonicStorageModule } from '@ionic/storage';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { CarrosServiceProvider } from '../providers/carros/carros.service';
 import { AgendamentosServiceProvider } from '../providers/agendamentos/agendamentos.service';
+import { AgendamentoDaoProvider } from '../providers/agendamento-dao/agendamento.dao';
 
 @NgModule({
   declarations: [
@@ -19,7 +26,12 @@ import { AgendamentosServiceProvider } from '../providers/agendamentos/agendamen
   imports: [
     BrowserModule,
     HttpClientModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot({
+      name: 'aluracar',
+      storeName: 'agendamentos',
+      driverOrder: ['indexeddb']
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -31,7 +43,8 @@ import { AgendamentosServiceProvider } from '../providers/agendamentos/agendamen
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     CarrosServiceProvider,
-    AgendamentosServiceProvider
+    AgendamentosServiceProvider,
+    AgendamentoDaoProvider
   ]
 })
 export class AppModule { }
