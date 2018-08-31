@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, Alert } from 'ionic-angular';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { Carro } from '../../models/carro';
 import { AgendamentosServiceProvider } from '../../providers/agendamentos/agendamentos.service';
@@ -27,10 +27,10 @@ export class CadastroPage implements OnInit {
     private agendamentoService: AgendamentosServiceProvider
   ) {
     this.cadastroForm = this.formBuilder.group({
-      nome: [''],
-      endereco: [''],
-      email: [''],
-      data: ['']
+      nome: ['', Validators.required],
+      endereco: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      data: [new Date().toISOString(), Validators.required]
     });
   }
 
