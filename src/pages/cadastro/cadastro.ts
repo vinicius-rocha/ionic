@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, Alert } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Storage } from '@ionic/storage';
+import { Observable } from 'rxjs/Observable';
 
 import { Carro } from '../../models/carro';
 import { AgendamentosServiceProvider } from '../../providers/agendamentos/agendamentos.service';
@@ -24,7 +26,8 @@ export class CadastroPage implements OnInit {
     public navParams: NavParams,
     private alertCtrl: AlertController,
     private formBuilder: FormBuilder,
-    private agendamentoService: AgendamentosServiceProvider
+    private agendamentoService: AgendamentosServiceProvider,
+    private storage: Storage
   ) {
     this.cadastroForm = this.formBuilder.group({
       nome: ['', Validators.required],
@@ -58,7 +61,9 @@ export class CadastroPage implements OnInit {
       enderecoCliente: this.cadastroForm.get('endereco').value,
       emailCliente: this.cadastroForm.get('email').value,
       modeloCarro: this.carro.nome,
-      precoTotal: this.precoTotal
+      precoTotal: this.precoTotal,
+      enviado: false,
+      confirmado: false
     };
 
     console.log(agendamento);
@@ -72,5 +77,10 @@ export class CadastroPage implements OnInit {
         () => mensagem = 'Agendamento realizado!',
         () => mensagem = 'Falha no agendamento! Tente novamente mais tarde'
       );
+  }
+
+  salva(agendamento: Agendamento) {
+    let chave = agendamento.emailCliente + this.cadastroForm.get('data').value.substr(0,10);
+    return Observable.fromPromise(this.storage.set(chave, agendamento))
   }
 }
