@@ -62,11 +62,14 @@ export class CadastroPage implements OnInit {
 
     console.log(agendamento);
 
+    let mensagem = '';
+
     this.agendamentoService
       .agenda(agendamento)
+      .finally(() => this.alerta.setSubTitle(mensagem).present())
       .subscribe(
-        () => this.alerta.setSubTitle('Agendamento realizado!').present(),
-        () => this.alerta.setSubTitle('Falha no agendamento! Tente novamente mais tarde').present()
+        () => mensagem = 'Agendamento realizado!',
+        () => mensagem = 'Falha no agendamento! Tente novamente mais tarde'
       );
   }
 }
