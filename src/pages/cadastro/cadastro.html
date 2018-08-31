@@ -17,23 +17,30 @@
       <ion-label stacked>Nome</ion-label>
       <ion-input formControlName="nome" name="nome"></ion-input>
     </ion-item>
+    <ap-message *ngIf="cadastroForm.get('nome').errors?.required" text="O nome é obrigatório."></ap-message>
 
     <ion-item>
       <ion-label stacked>Endereço</ion-label>
       <ion-input formControlName="endereco" name="endereco"></ion-input>
     </ion-item>
+    <ap-message *ngIf="cadastroForm.get('endereco').errors?.required" text="O endereço é obrigatório."></ap-message>
 
     <ion-item>
       <ion-label stacked>Email</ion-label>
       <ion-input formControlName="email" name="email"></ion-input>
     </ion-item>
+    <ap-message *ngIf="cadastroForm.get('email').errors?.required" text="O email é obrigatório."></ap-message>
+    <ap-message *ngIf="cadastroForm.get('email').errors?.email" text="O email é inválido."></ap-message>
 
     <ion-item>
       <ion-label stacked>Data</ion-label>
-      <ion-datetime formControlName="data" dateFormat="dd/mm/yyyy" name="data"></ion-datetime>
+      <ion-datetime formControlName="data" displayFormat="DD/MM/YYYY" name="data"></ion-datetime>
     </ion-item>
+    <ap-message *ngIf="cadastroForm.get('data').errors?.required" text="A data é obrigatória."></ap-message>
 
-    <button type="submit" ion-button block outline color="secondary">Agendar</button>
+    <button [disabled]="cadastroForm.invalid" type="submit" margin-top ion-button block outline color="secondary">
+      <ion-icon name="send"> </ion-icon>Agendar
+    </button>
   </form>
 
 </ion-content>

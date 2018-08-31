@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, LoadingController, AlertController } from 'ionic-angular';
 
 import { Carro } from '../../models/carro';
-import { CarrosServiceProvider } from '../../providers/carros-service/carros-service';
+import { CarrosServiceProvider } from '../../providers/carros/carros.service';
 import { NavLifeCycle } from '../../utils/ionic/nav/nav-lifecycle';
 import { DetalheCarroPage } from '../detalhe-carro/detalhe-carro';
 
