@@ -4,10 +4,10 @@ import { CadastroPage } from './cadastro';
 
 @NgModule({
   declarations: [
-    CadastroPage,
+    CadastroPage
   ],
   imports: [
-    IonicPageModule.forChild(CadastroPage),
+    IonicPageModule.forChild(CadastroPage)
   ],
   exports: [
     CadastroPage

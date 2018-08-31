@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { Carro } from '../../models/carro';
 import { Acessorio } from '../../models/acessorio';
+import { CadastroPage } from '../cadastro/cadastro';
 
 @IonicPage()
 @Component({
@@ -33,6 +34,13 @@ export class DetalheCarroPage implements OnInit{
 
   atualizaTotal(ativado: boolean, acessorio: Acessorio){
     ativado ? this._precoTotal += acessorio.preco : this._precoTotal -= acessorio.preco;
+  }
+
+  avancaCadastro() {
+    this.navCtrl.push(CadastroPage.name, {
+      carro: this.carro,
+      precoTotal: this._precoTotal
+    });
   }
 
 }
