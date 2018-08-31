@@ -62,6 +62,7 @@ export class CadastroPage implements OnInit {
       emailCliente: this.cadastroForm.get('email').value,
       modeloCarro: this.carro.nome,
       precoTotal: this.precoTotal,
+      data: this.cadastroForm.get('data').value,
       enviado: false,
       confirmado: false
     };
@@ -86,7 +87,7 @@ export class CadastroPage implements OnInit {
   }
 
   salva(agendamento: Agendamento) {
-    let chave = agendamento.emailCliente + this.cadastroForm.get('data').value.substr(0, 10);
+    let chave = agendamento.emailCliente + agendamento.data.substr(0, 10);
     return Observable.fromPromise(this.storage.set(chave, agendamento))
   }
 }
