@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 
 import { Carro } from '../../models/carro';
 import { AgendamentosServiceProvider } from '../../providers/agendamentos/agendamentos.service';
+import { HomePage } from '../home/home';
 
 @IonicPage()
 @Component({
@@ -42,7 +43,8 @@ export class CadastroPage implements OnInit {
       title: 'Aviso',
       buttons: [
         {
-          text: 'OK'
+          text: 'OK',
+          handler: () => { this.navCtrl.setRoot(HomePage); }
         }
       ]
     });
