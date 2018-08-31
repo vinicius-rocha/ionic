@@ -12,31 +12,28 @@
   <h2>{{ carro.nome }}</h2>
   <p>R$ {{ precoTotal}}</p>
 
-  <form>
+  <form [formGroup]="cadastroForm" (submit)="agenda()">
     <ion-item>
       <ion-label stacked>Nome</ion-label>
-      <ion-input name="nome"></ion-input>
+      <ion-input formControlName="nome" name="nome"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label stacked>Endereço</ion-label>
-      <ion-input name="endereco"></ion-input>
+      <ion-input formControlName="endereco" name="endereco"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label stacked>Email</ion-label>
-      <ion-input name="email"></ion-input>
+      <ion-input formControlName="email" name="email"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label stacked>Data</ion-label>
-      <ion-datetime dateFormat="dd/mm/yyyy" name="data"></ion-input>
+      <ion-datetime formControlName="data" dateFormat="dd/mm/yyyy" name="data"></ion-datetime>
     </ion-item>
+
+    <button type="submit" ion-button block outline color="secondary">Agendar</button>
   </form>
 
-  <ion-fab top right edge>
-    <button ion-fab mini>
-      <ion-icon name="send"></ion-icon>
-    </button>
-  </ion-fab>
 </ion-content>
