@@ -26,7 +26,7 @@ export class CadastroPage implements OnInit {
     private alertCtrl: AlertController,
     private formBuilder: FormBuilder,
     private agendamentoService: AgendamentosServiceProvider,
-    private agendamentoDao: AgendamentoDaoProvider    
+    private agendamentoDao: AgendamentoDaoProvider
   ) {
     this.cadastroForm = this.formBuilder.group({
       nome: ['', Validators.required],
@@ -70,8 +70,14 @@ export class CadastroPage implements OnInit {
 
     let mensagem = '';
 
-    this.agendamentoService
-      .agenda(agendamento)
+    this.agendamentoDao
+      .ehDuplicado(agendamento)
+      .mergeMap(duplicado => {
+        if (duplicado) {
+          throw new Error('Agendamento já existente!');
+        }
+        return this.agendamentoService.agenda(agendamento)
+      })
       .mergeMap(valor => {
         let observable = this.agendamentoDao.salva(agendamento);
         if (valor instanceof Error)
