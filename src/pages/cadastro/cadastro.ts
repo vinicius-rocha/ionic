@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, Alert } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Storage } from '@ionic/storage';
-import { Observable } from 'rxjs/Observable';
 
 import { Carro } from '../../models/carro';
 import { AgendamentosServiceProvider } from '../../providers/agendamentos/agendamentos.service';
 import { HomePage } from '../home/home';
 import { Agendamento } from '../../models/agendamento';
+import { AgendamentoDaoProvider } from '../../providers/agendamento-dao/agendamento.dao';
 
 @IonicPage()
 @Component({
@@ -27,7 +26,7 @@ export class CadastroPage implements OnInit {
     private alertCtrl: AlertController,
     private formBuilder: FormBuilder,
     private agendamentoService: AgendamentosServiceProvider,
-    private storage: Storage
+    private agendamentoDao: AgendamentoDaoProvider    
   ) {
     this.cadastroForm = this.formBuilder.group({
       nome: ['', Validators.required],
@@ -74,7 +73,7 @@ export class CadastroPage implements OnInit {
     this.agendamentoService
       .agenda(agendamento)
       .mergeMap(valor => {
-        let observable = this.salva(agendamento);
+        let observable = this.agendamentoDao.salva(agendamento);
         if (valor instanceof Error)
           throw valor;
         return observable;
@@ -84,10 +83,5 @@ export class CadastroPage implements OnInit {
         () => mensagem = 'Agendamento realizado!',
         (err: Error) => mensagem = err.message
       );
-  }
-
-  salva(agendamento: Agendamento) {
-    let chave = agendamento.emailCliente + agendamento.data.substr(0, 10);
-    return Observable.fromPromise(this.storage.set(chave, agendamento))
   }
 }

@@ -16,6 +16,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { CarrosServiceProvider } from '../providers/carros/carros.service';
 import { AgendamentosServiceProvider } from '../providers/agendamentos/agendamentos.service';
+import { AgendamentoDaoProvider } from '../providers/agendamento-dao/agendamento.dao';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { AgendamentosServiceProvider } from '../providers/agendamentos/agendamen
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     CarrosServiceProvider,
-    AgendamentosServiceProvider
+    AgendamentosServiceProvider,
+    AgendamentoDaoProvider
   ]
 })
 export class AppModule { }
