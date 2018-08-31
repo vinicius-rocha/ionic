@@ -30,10 +30,12 @@
 
     <ion-item>
       <ion-label stacked>Data</ion-label>
-      <ion-datetime formControlName="data" dateFormat="dd/mm/yyyy" name="data"></ion-datetime>
+      <ion-datetime formControlName="data" displayFormat="DD/MM/YYYY" name="data"></ion-datetime>
     </ion-item>
 
-    <button type="submit" ion-button block outline color="secondary">Agendar</button>
+    <button type="submit" margin-top ion-button block outline color="secondary">
+      <ion-icon name="send"> </ion-icon>Agendar
+    </button>
   </form>
 
 </ion-content>
