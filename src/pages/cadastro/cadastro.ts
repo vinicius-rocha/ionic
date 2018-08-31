@@ -72,6 +72,7 @@ export class CadastroPage implements OnInit {
 
     this.agendamentoService
       .agenda(agendamento)
+      .mergeMap(() => this.salva(agendamento))
       .finally(() => this.alerta.setSubTitle(mensagem).present())
       .subscribe(
         () => mensagem = 'Agendamento realizado!',
