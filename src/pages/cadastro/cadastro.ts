@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { Carro } from '../../models/carro';
 import { AgendamentosServiceProvider } from '../../providers/agendamentos/agendamentos.service';
 import { HomePage } from '../home/home';
+import { Agendamento } from '../../models/agendamento';
 
 @IonicPage()
 @Component({
@@ -52,7 +53,7 @@ export class CadastroPage implements OnInit {
   agenda() {
     this.alerta = this.criaAlerta();
 
-    let agendamento = {
+    let agendamento: Agendamento = {
       nomeCliente: this.cadastroForm.get('nome').value,
       enderecoCliente: this.cadastroForm.get('endereco').value,
       emailCliente: this.cadastroForm.get('email').value,
