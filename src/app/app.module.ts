@@ -17,15 +17,19 @@ import { HomePage } from '../pages/home/home';
 import { CarrosServiceProvider } from '../providers/carros/carros.service';
 import { AgendamentosServiceProvider } from '../providers/agendamentos/agendamentos.service';
 import { AgendamentoDaoProvider } from '../providers/agendamento-dao/agendamento.dao';
+import { LoginPage } from '../pages/login/login';
+import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    LoginPage
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    ComponentsModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot({
       name: 'aluracar',
@@ -36,7 +40,8 @@ import { AgendamentoDaoProvider } from '../providers/agendamento-dao/agendamento
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    LoginPage
   ],
   providers: [
     StatusBar,
