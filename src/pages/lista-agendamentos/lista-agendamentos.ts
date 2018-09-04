@@ -1,18 +1,31 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { Agendamento } from '../../models/agendamento';
+import { AgendamentoDaoProvider } from '../../providers/agendamento-dao/agendamento.dao';
+import { NavLifeCycle } from '../../utils/ionic/nav/nav-lifecycle';
+
 @IonicPage()
 @Component({
   selector: 'page-lista-agendamentos',
   templateUrl: 'lista-agendamentos.html',
 })
-export class ListaAgendamentosPage {
+export class ListaAgendamentosPage implements NavLifeCycle{
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  agendamentos: Agendamento[];
+
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private agendamentoDao: AgendamentoDaoProvider
+  ) { }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ListaAgendamentosPage');
+    this.agendamentoDao
+      .listaTodos()
+      .subscribe(
+        (agendamentos: Agendamento[]) => this.agendamentos = agendamentos
+      )
   }
 
 }
