@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { Platform, Nav } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -11,10 +11,12 @@ import { ListaAgendamentosPage } from '../pages/lista-agendamentos/lista-agendam
 })
 export class MyApp {
 
+  @ViewChild(Nav) nav: Nav;
+
   rootPage: any = HomePage;
 
   paginas = [
-    { titulo: 'Agendamentos', pagina: ListaAgendamentosPage.name, icone: 'calendar' }
+    { titulo: 'Agendamentos', componente: ListaAgendamentosPage.name, icone: 'calendar' }
   ];
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {
@@ -23,6 +25,10 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
     });
+  }
+
+  irParaPagina(componente) {
+    this.nav.push(componente);
   }
 
 }
