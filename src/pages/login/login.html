@@ -1,0 +1,27 @@
+<ion-content scroll="false">
+  <div class="splash-bg"></div>
+  <div class="splash-info">
+    <div class="splash-logo"></div>
+    <div class="splash-intro">
+      Aluracar
+    </div>
+  </div>
+
+  <div padding>
+    <form [formGroup]="formLogin" (submit)="efetuaLogin()">
+      <ion-item>
+        <ion-label stacked>Email</ion-label>
+        <ion-input formControlName="email" name="email" type="text"></ion-input>
+      </ion-item>
+      <ap-message *ngIf="formLogin.get('email').errors?.required" text="Digite seu email."></ap-message>
+
+      <ion-item>
+        <ion-label stacked>Senha</ion-label>
+        <ion-input formControlName="senha" name="senha" type="password"></ion-input>
+      </ion-item>
+      <ap-message *ngIf="formLogin.get('senha').errors?.required" text="Digite sua senha."></ap-message>
+
+      <button [disabled]="formLogin.invalid" ion-button block type="submit" class="login">ENTRAR</button>
+    </form>
+  </div>
+</ion-content>
