@@ -19,6 +19,7 @@ import { AgendamentosServiceProvider } from '../providers/agendamentos/agendamen
 import { AgendamentoDaoProvider } from '../providers/agendamento-dao/agendamento.dao';
 import { LoginPage } from '../pages/login/login';
 import { ComponentsModule } from '../components/components.module';
+import { UsuariosServiceProvider } from '../providers/usuarios/usuarios.service';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { ComponentsModule } from '../components/components.module';
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     CarrosServiceProvider,
     AgendamentosServiceProvider,
-    AgendamentoDaoProvider
+    AgendamentoDaoProvider,
+    UsuariosServiceProvider
   ]
 })
 export class AppModule { }
