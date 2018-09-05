@@ -38,4 +38,8 @@ export class MyApp {
   get usuarioLogado() {
     return this.usuarioService.usuarioLogado;
   }
+
+  get profileFoto() {
+    return this.usuarioService.profileFoto;
+  }
 }
