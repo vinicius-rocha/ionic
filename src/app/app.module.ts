@@ -11,6 +11,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/fromPromise';
 import 'rxjs/add/observable/of';
 import { IonicStorageModule } from '@ionic/storage';
+import { Vibration } from '@ionic-native/vibration';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -51,7 +52,8 @@ import { UsuariosServiceProvider } from '../providers/usuarios/usuarios.service'
     CarrosServiceProvider,
     AgendamentosServiceProvider,
     AgendamentoDaoProvider,
-    UsuariosServiceProvider
+    UsuariosServiceProvider,
+    Vibration
   ]
 })
 export class AppModule { }
