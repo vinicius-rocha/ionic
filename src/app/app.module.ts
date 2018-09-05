@@ -14,6 +14,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { Vibration } from '@ionic-native/vibration';
 import { DatePicker } from '@ionic-native/date-picker';
 import { Camera } from '@ionic-native/camera';
+import { OneSignal } from '@ionic-native/onesignal';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -57,7 +58,8 @@ import { UsuariosServiceProvider } from '../providers/usuarios/usuarios.service'
     UsuariosServiceProvider,
     Vibration,
     DatePicker,
-    Camera
+    Camera,
+    OneSignal
   ]
 })
 export class AppModule { }
