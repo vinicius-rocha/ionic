@@ -69,7 +69,8 @@ export class CadastroPage implements OnInit {
         precoTotal: this.precoTotal,
         data: this.cadastroForm.get('data').value,
         enviado: false,
-        confirmado: false
+        confirmado: false,
+        visualizado: false
       };
 
       console.log(agendamento);
