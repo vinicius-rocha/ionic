@@ -32,9 +32,9 @@
     <ap-message *ngIf="cadastroForm.get('email').errors?.required && form.submitted" text="O email é obrigatório."></ap-message>
     <ap-message *ngIf="cadastroForm.get('email').errors?.email && form.submitted" text="O email é inválido."></ap-message>
 
-    <ion-item>
+    <ion-item (click)="selecionaData()">
       <ion-label stacked>Data</ion-label>
-      <ion-datetime formControlName="data" displayFormat="DD/MM/YYYY" name="data"></ion-datetime>
+      <ion-datetime [disabled]="true" formControlName="data" [(ngModel)]="data" displayFormat="DD/MM/YYYY" name="data"></ion-datetime>
     </ion-item>
     <ap-message *ngIf="cadastroForm.get('data').errors?.required && form.submitted" text="A data é obrigatória."></ap-message>
 

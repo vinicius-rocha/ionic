@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, Alert } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Vibration } from '@ionic-native/vibration';
+import { DatePicker } from '@ionic-native/date-picker';
 
 import { Carro } from '../../models/carro';
 import { AgendamentosServiceProvider } from '../../providers/agendamentos/agendamentos.service';
@@ -20,6 +21,7 @@ export class CadastroPage implements OnInit {
   precoTotal: number;
   alerta: Alert;
   cadastroForm: FormGroup;
+  data: string;
 
   constructor(
     public navCtrl: NavController,
@@ -28,7 +30,8 @@ export class CadastroPage implements OnInit {
     private formBuilder: FormBuilder,
     private agendamentoService: AgendamentosServiceProvider,
     private agendamentoDao: AgendamentoDaoProvider,
-    private vibration: Vibration
+    private vibration: Vibration,
+    private datePicker: DatePicker
   ) {
     this.cadastroForm = this.formBuilder.group({
       nome: ['', Validators.required],
@@ -55,9 +58,9 @@ export class CadastroPage implements OnInit {
     });
   }
   agenda() {
-    if(!this.cadastroForm.invalid) {
+    if (!this.cadastroForm.invalid) {
       this.alerta = this.criaAlerta();
-  
+
       let agendamento: Agendamento = {
         nomeCliente: this.cadastroForm.get('nome').value,
         enderecoCliente: this.cadastroForm.get('endereco').value,
@@ -68,11 +71,11 @@ export class CadastroPage implements OnInit {
         enviado: false,
         confirmado: false
       };
-  
+
       console.log(agendamento);
-  
+
       let mensagem = '';
-  
+
       this.agendamentoDao
         .ehDuplicado(agendamento)
         .mergeMap(duplicado => {
@@ -95,5 +98,18 @@ export class CadastroPage implements OnInit {
     } else {
       this.vibration.vibrate(500);
     }
+  }
+
+  selecionaData() {
+    this.datePicker.show({
+      date: new Date(),
+      mode: 'date',
+      androidTheme: this.datePicker.ANDROID_THEMES.THEME_HOLO_LIGHT
+    })
+      .then(date => {
+        this.data = date.toISOString();
+      }
+      )
+      .catch(() => { });
   }
 }
