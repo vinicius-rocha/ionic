@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { ListaAgendamentosPage } from '../pages/lista-agendamentos/lista-agendamentos';
 import { LoginPage } from '../pages/login/login';
+import { PerfilPage } from '../pages/perfil/perfil';
 
 @Component({
   selector: 'myapp',
@@ -17,6 +18,7 @@ export class MyApp {
   rootPage: any = LoginPage;
 
   paginas = [
+    { titulo: 'Perfil', componente: PerfilPage.name, icone: 'person' },
     { titulo: 'Agendamentos', componente: ListaAgendamentosPage.name, icone: 'calendar' }
   ];
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
