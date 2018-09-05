@@ -19,6 +19,6 @@ export class UsuariosServiceProvider {
   }
 
   get usuarioLogado(){
-    return this.usuarioLogado;
+    return this._usuarioLogado;
   }
 }
