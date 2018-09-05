@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Usuario } from '../../models/usuario';
+import { environment } from '../../environments/enviroment';
 
-const API_URL = 'http://192.168.0.127:8080/api';
+const API_URL = environment.API_URL;
 
 @Injectable()
 export class UsuariosServiceProvider {
