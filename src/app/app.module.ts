@@ -13,6 +13,7 @@ import 'rxjs/add/observable/of';
 import { IonicStorageModule } from '@ionic/storage';
 import { Vibration } from '@ionic-native/vibration';
 import { DatePicker } from '@ionic-native/date-picker';
+import { Camera } from '@ionic-native/camera';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -55,7 +56,8 @@ import { UsuariosServiceProvider } from '../providers/usuarios/usuarios.service'
     AgendamentoDaoProvider,
     UsuariosServiceProvider,
     Vibration,
-    DatePicker
+    DatePicker,
+    Camera
   ]
 })
 export class AppModule { }
