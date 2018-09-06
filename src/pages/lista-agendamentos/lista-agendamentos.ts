@@ -32,6 +32,20 @@ export class ListaAgendamentosPage implements NavLifeCycle {
       )
   }
 
+  ionViewDidEnter() {
+    setTimeout(() => this.atualizaAgendamentos(), 5000);
+  }
+  
+  atualizaAgendamentos() {
+    this.agendamentos
+      .filter(agendamento => agendamento.confirmado)
+      .forEach(agendamento => {
+        agendamento.visualizado = true;
+
+        this.agendamentoDao.salva(agendamento);
+      });
+  }
+
   reenvia(agendamento: Agendamento) {
     console.log(agendamento);
     

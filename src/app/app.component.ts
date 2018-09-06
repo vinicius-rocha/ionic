@@ -8,6 +8,8 @@ import { ListaAgendamentosPage } from '../pages/lista-agendamentos/lista-agendam
 import { LoginPage } from '../pages/login/login';
 import { PerfilPage } from '../pages/perfil/perfil';
 import { UsuariosServiceProvider } from '../providers/usuarios/usuarios.service';
+import { AgendamentoDaoProvider } from '../providers/agendamento-dao/agendamento.dao';
+import { Agendamento } from '../models/agendamento';
 
 @Component({
   selector: 'myapp',
@@ -23,7 +25,15 @@ export class MyApp {
     { titulo: 'Perfil', componente: PerfilPage.name, icone: 'person' },
     { titulo: 'Agendamentos', componente: ListaAgendamentosPage.name, icone: 'calendar' }
   ];
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private usuarioService: UsuariosServiceProvider, private oneSignal: OneSignal) {
+  constructor(
+    platform: Platform,
+    statusBar: StatusBar,
+    splashScreen: SplashScreen,
+    private usuarioService: UsuariosServiceProvider,
+    private agendamentoDao: AgendamentoDaoProvider,
+    private oneSignal: OneSignal
+  ) {
+
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -31,23 +41,30 @@ export class MyApp {
       splashScreen.hide();
 
       //config onesignal
-      this.configuraPushNotification();
-    });
-  }
+      this.oneSignal.startInit('8fdceab6-364c-4fa8-b8e1-58a227623104', '419962267366');
 
-  private configuraPushNotification() {
-    let iOSconfig = {
-      kOSSettingsKeyAutoPrompot: true,
-      kOSSettingsKeyInAppLaunchURL: false
-    };
-    this.oneSignal
-      .startInit('eec780a3-a908-454d-bd6f-00de644c7a6e', '419962267366')
-      .iOSconfig(iOSconfig);
-    this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.Notification);
-    this.oneSignal.handleNotificationReceived()
-      .subscribe((notificacao: OSNotification) => {
-      });
-    this.oneSignal.endInit();
+      this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.Notification);
+      
+      this.oneSignal.handleNotificationReceived()
+        .subscribe((notificacao: OSNotification) => {
+          let dadosAdicionais = notificacao.payload.additionalData;
+
+          let agendamentoId = dadosAdicionais['agendamento-id'];
+
+          this.agendamentoDao
+            .recupera(agendamentoId)
+            .subscribe((agendamento: Agendamento) => {
+              agendamento.confirmado = true;
+              this.agendamentoDao.salva(agendamento);
+            });
+        });
+      
+      this.oneSignal.handleNotificationOpened()
+        .subscribe(() => this.nav.push(ListaAgendamentosPage.name));
+
+      this.oneSignal.endInit();
+    });
+
   }
 
   irParaPagina(componente) {
