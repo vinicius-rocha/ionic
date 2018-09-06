@@ -37,4 +37,11 @@ export class AgendamentoDaoProvider {
 
     return Observable.fromPromise(promise);
   }
+
+  recupera(agendamentoId){
+    let promise =
+      this.storage
+        .get(agendamentoId);
+    return Observable.fromPromise(promise);
+  }
 }

@@ -5,7 +5,7 @@ import { Usuario } from '../../models/usuario';
 import { environment } from '../../environments/enviroment';
 
 const API_URL = environment.API_URL;
-
+ 
 @Injectable()
 export class UsuariosServiceProvider {
 
@@ -21,5 +21,13 @@ export class UsuariosServiceProvider {
 
   get usuarioLogado(){
     return this._usuarioLogado;
+  }
+
+  salvaProfile(foto){
+    localStorage.setItem('profile-foto', foto);
+  }
+
+  get profileFoto(){
+    return localStorage.getItem('profile-foto') ? localStorage.getItem('profile-foto') : 'assets/imgs/profile.png';
   }
 }
